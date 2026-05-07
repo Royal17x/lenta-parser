@@ -1,0 +1,9 @@
+backend/bin/
+backend/*.exe
+backend/lenta-parser
+.env
+*.env
+.idea/
+.vscode/
+*.swp
+
