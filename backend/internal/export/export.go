@@ -11,8 +11,18 @@ import (
 	"github.com/Royal17x/lenta-parser/internal/lenta"
 )
 
+const outputDir = "output"
+
+func ensureOutputDir() error {
+	return os.MkdirAll(outputDir, 0755)
+}
+
 func SaveCSV(products []lenta.Product, category string) (string, error) {
-	filename := fmt.Sprintf("output_%s_%s.csv", category, timestamp())
+	if err := ensureOutputDir(); err != nil {
+		return "", fmt.Errorf("create output dir: %w", err)
+	}
+
+	filename := fmt.Sprintf("%s/output_%s_%s.csv", outputDir, category, timestamp())
 
 	file, err := os.Create(filename)
 	if err != nil {

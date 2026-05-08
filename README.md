@@ -2,6 +2,10 @@
 
 Production-grade price monitoring parser for [lenta.com](https://lenta.com) .
 
+## Demo
+
+![Lenta Parser Demo](docs/demo.gif)
+
 ## What it does
 
 Collects product names, prices and page URLs from lenta.com by category, for a specific store (pickup point). Data is extracted from Angular SSR Transfer State embedded in HTML - no fragile CSS selectors, works regardless of markup changes.

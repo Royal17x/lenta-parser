@@ -7,3 +7,4 @@ backend/lenta-parser
 .vscode/
 *.swp
 
+backend/output/

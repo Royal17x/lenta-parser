@@ -4,6 +4,8 @@ import (
 	"context"
 	"encoding/json"
 	"fmt"
+	"github.com/Royal17x/lenta-parser/internal/export"
+	"log/slog"
 	"net/http"
 	"sync"
 	"time"
@@ -12,18 +14,28 @@ import (
 )
 
 type Server struct {
-	scraper Scraper
+	scraper  Scraper
+	maxPages int
+
 	mu      sync.RWMutex
 	results []lenta.ScrapeResult
 	running bool
+	events  []sseEvent
+}
+
+type sseEvent struct {
+	Type     string `json:"type"`
+	Category string `json:"category,omitempty"`
+	Message  string `json:"message,omitempty"`
+	Count    int    `json:"count,omitempty"`
 }
 
 type Scraper interface {
 	ScrapeAll(ctx context.Context, categories []lenta.Category, maxPages int) <-chan lenta.ScrapeResult
 }
 
-func New(scraper Scraper) *Server {
-	return &Server{scraper: scraper}
+func New(scraper Scraper, maxPages int) *Server {
+	return &Server{scraper: scraper, maxPages: maxPages}
 }
 
 func (s *Server) Routes() http.Handler {
@@ -51,10 +63,56 @@ func (s *Server) handleStart(w http.ResponseWriter, r *http.Request) {
 	}
 	s.running = true
 	s.results = nil
+	s.events = nil
 	s.mu.Unlock()
+
+	go s.runScraping()
 
 	w.WriteHeader(http.StatusAccepted)
 	json.NewEncoder(w).Encode(map[string]string{"status": "started"})
+}
+
+func (s *Server) runScraping() {
+	ctx := context.Background()
+	slog.Info("scraping started via API")
+
+	for result := range s.scraper.ScrapeAll(ctx, lenta.KnownCategories, s.maxPages) {
+		s.mu.Lock()
+		s.results = append(s.results, result)
+		if result.Err != nil {
+			s.events = append(s.events, sseEvent{
+				Type: "error", Category: result.Category.Name,
+				Message: result.Err.Error(),
+			})
+		} else {
+			s.events = append(s.events, sseEvent{
+				Type: "progress", Category: result.Category.Name,
+				Count: len(result.Products),
+			})
+		}
+		s.mu.Unlock()
+		if result.Err == nil {
+			if file, err := export.SaveCSV(result.Products, result.Category.Slug); err != nil {
+				slog.Error("CSV export failed", "category", result.Category.Name, "error", err)
+			} else {
+				slog.Info("CSV saved", "file", file)
+			}
+		}
+	}
+
+	s.mu.Lock()
+	total := 0
+	for _, r := range s.results {
+		total += len(r.Products)
+	}
+	s.events = append(s.events, sseEvent{
+		Type: "done", Count: total,
+		Message: fmt.Sprintf("Собрано %d товаров", total),
+	})
+	s.running = false
+	s.mu.Unlock()
+
+	slog.Info("scraping finished via API", "total", total)
 }
 
 func (s *Server) handleStream(w http.ResponseWriter, r *http.Request) {
@@ -69,68 +127,35 @@ func (s *Server) handleStream(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	sendEvent := func(event SSEEvent) {
-		data, _ := json.Marshal(event)
+	send := func(ev sseEvent) {
+		data, _ := json.Marshal(ev)
 		fmt.Fprintf(w, "data: %s\n\n", data)
 		flusher.Flush()
 	}
 
-	for {
-		s.mu.RLock()
-		running := s.running
-		s.mu.RUnlock()
-		if running {
-			break
-		}
-		select {
-		case <-r.Context().Done():
-			return
-		case <-time.After(500 * time.Millisecond):
-		}
-	}
-
-	ticker := time.NewTicker(300 * time.Millisecond)
+	sent := 0
+	ticker := time.NewTicker(200 * time.Millisecond)
 	defer ticker.Stop()
 
-	lastSent := 0
 	for {
 		select {
 		case <-r.Context().Done():
 			return
 		case <-ticker.C:
 			s.mu.RLock()
-			current := s.results
+			all := s.events
 			running := s.running
 			s.mu.RUnlock()
 
-			for i := lastSent; i < len(current); i++ {
-				res := current[i]
-				if res.Err != nil {
-					sendEvent(SSEEvent{
-						Type:     "error",
-						Category: res.Category.Name,
-						Message:  res.Err.Error(),
-					})
-				} else {
-					sendEvent(SSEEvent{
-						Type:     "progress",
-						Category: res.Category.Name,
-						Count:    len(res.Products),
-					})
+			for sent < len(all) {
+				send(all[sent])
+				sent++
+				if all[sent-1].Type == "done" {
+					return
 				}
-				lastSent++
 			}
 
-			if !running && lastSent >= len(current) {
-				total := 0
-				for _, r := range current {
-					total += len(r.Products)
-				}
-				sendEvent(SSEEvent{
-					Type:    "done",
-					Count:   total,
-					Message: fmt.Sprintf("Scraped %d products", total),
-				})
+			if !running && sent == len(all) && sent > 0 && all[sent-1].Type == "done" {
 				return
 			}
 		}
