@@ -27,7 +27,7 @@ type HTTPConfig struct {
 	RetryWaitBase  time.Duration `env:"HTTP_RETRY_WAIT_BASE" env-default:"1s"`
 	RateLimitDelay time.Duration `env:"HTTP_RATE_LIMIT_DELAY" env-default:"500ms"`
 	Proxies        string        `env:"HTTP_PROXIES" env-default:""`
-	QratorJSID     string        `env:"QRATOR_JSID" env-default:""`
+	QratorJSID     string        `env:"QRATOR_JSID"           env-default:""`
 }
 
 type ServerConfig struct {

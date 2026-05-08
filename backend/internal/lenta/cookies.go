@@ -20,6 +20,17 @@ func StoreCookies(cfg StoreConfig) []*http.Cookie {
 	}
 }
 
+func StoreCookiesWithQrator(cfg StoreConfig, qratorJSID string) []*http.Cookie {
+	cookies := StoreCookies(cfg)
+	if qratorJSID != "" {
+		cookies = append(cookies, &http.Cookie{
+			Name:  "qrator_jsid",
+			Value: qratorJSID,
+		})
+	}
+	return cookies
+}
+
 type StoreConfig struct {
 	ID    int
 	Alias string
