@@ -12,6 +12,11 @@ type Config struct {
 	HTTP    HTTPConfig
 	Server  ServerConfig
 	Metrics MetricsConfig
+	Scraper ScraperConfig
+}
+
+type ScraperConfig struct {
+	MaxPagesPerCategory int `env:"MAX_PAGES_PER_CATEGORY" env-default:"3"`
 }
 
 type StoreConfig struct {

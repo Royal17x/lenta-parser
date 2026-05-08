@@ -1,0 +1,41 @@
+name,price_rub,regular_price_rub,is_promo,rating,votes,url
+"Нектар СМЕШАРИКИ Мультифрукт, с 3 лет, 200мл",29.99,35.79,true,4.5,2,https://lenta.com/product/dp-nektar-multifrukt-s-3-h-let-rossiya-200ml/
+"Напиток BUBBLES OFF LOVE Чайный напиток со вкусом персика с желейными шариками негазированный, 0.32л",179.99,231.57,true,5.0,1,https://lenta.com/product/napitok-bezalkogolnyjj-negaz-chajjnyjj-nap-s-zhel-shar-so-vkusom-persika-zhb-vetnam-032l/
+"Напиток BUBBLES OFF LOVE Чайный напиток со вкусом личи с желейными шариками негазированный, 0.32л",179.99,231.57,true,5.0,3,https://lenta.com/product/napitok-bezalkogolnyjj-negaz-chajjnyjj-nap-s-zhel-shar-so-vkusom-lichi-zhb-vetnam-032l/
+"Напиток сокосодержащий ДОБРЫЙ Pulpy Яблоко, черноплодная рябина, вишня, 0.45л",89.99,126.31,true,4.9,23,https://lenta.com/product/napitok-sokosoderzhashchijj-pulpy-yabloko---chernoplodnaya-ryabina---vishnya-rossiya-045l/
+"Нектар BARINOFF Мультифруктовый с мякотью, 0.25л",59.99,84.20,true,5.0,4,https://lenta.com/product/nektar-multifruktovyjj-myak-stb-rossiya-025l/
+"Чай холодный зеленый СВЯТОЙ ИСТОЧНИК Манго-ромашка, негазированный, 0.5л",79.99,88.99,true,5.0,7,https://lenta.com/product/napitok-bezalkogolnyjj-zelenyjj-chajj-so-vkusom-mango-romashka-negaz-pet-rossiya-05l/
+"Нектар МАЛЫШАМ Яблоко, персик неосветленный, с 5 месяцев, 200мл",29.99,33.99,true,5.0,22,https://lenta.com/product/detskoe-pitanie-nektar-yablochno-persikovyjj-neosvetlen-dpit-det-ran-vozr-s-5-mes-rossiya-200ml/
+"Пиво светлое безалкогольное KAISERDOM Hefe-Weissbier пастеризованное нефильтрованное неосветленное, 0.5л",189.99,199.99,false,2.7,9,https://lenta.com/product/pivo-svetloe-bezalkogolnoe-hefe-weissbier-paster-pshen-nefil-neosv-zhb-germaniya-05l/
+"Напиток энергетический DRIVE ME Оригинальный газированный, 0.5л",69.99,94.79,true,4.7,7,https://lenta.com/product/napitok-bezalkogolnyjj-originalnyjj-energet-aromatiz-pasteriz-gaz-pet-rossiya-05l/
+"Напиток безалкогольный LE GRAND NOIR Гренаш Блан Шардоне Ле Селье Жан д'Алибер негазированный, 0.75л",1200.00,1894.73,true,3.7,3,https://lenta.com/product/napitok-bezalkogolnyjj-grenash-blan-shardone-le-sele-zhan-daliber-negaz-franciya-075l/
+"Сок YAN Тропический, 0.25л",89.99,126.31,true,4.8,32,https://lenta.com/product/sok-tropicheskijj-st-armeniya-025l/
+"Напиток сокосодержащий ЛЮБИМЫЙ Яблоко осветленный, 0.2л",25.99,52.69,true,4.9,35,https://lenta.com/product/napitok-sokosoderzhashchijj-yabloko-osvetlennyjj-rossiya-02l/
+"Напиток сокосодержащий ФРУКТОВЫЙ ЗВЕЗДНЫЙ ЛУЧ со вкусом винограда с мякотью, 0.62л",229.99,242.10,false,4.1,7,https://lenta.com/product/napitok-sokosoderzhashchijj-s-myakotyu-i-vkusom-vinograda-pet-kitajj-062l/
+"Сок FLEUR ALPINE Яблочно-вишневый с родниковой водой, с 8 месяцев, 200мл",149.99,169.99,true,4.8,4,https://lenta.com/product/sok-s-rodn-vodojjyablochno-vishnevyjj-avstriya-200ml/
+"Напиток безалкогольный КОДОРНЬЮ зеро, 0.75л",1499.99,2526.31,true,5.0,3,https://lenta.com/product/napitok-bezalkogolnyjj-zero-ispaniya-075l/
+"Сок RICH Вишня, 0.2л",97.99,126.39,true,4.4,11,https://lenta.com/product/sok-vishnevyjj-stb-rossiya-02l/
+"Сок YAN Манго, 0.25л",80.99,126.31,true,4.9,48,https://lenta.com/product/sok-mango-st-armeniya-025l/
+"Напиток 365 ДНЕЙ Кола среднегазированный, 0.5л",25.59,28.49,true,4.5,103,https://lenta.com/product/napitok-bezalkogolnyjj-kola-srednegaz-pet-rossiya-05l/
+"Нектар ARTSHANI Банан, яблоко, морковь с мякотью, с 3 лет, 1л",229.99,305.29,true,5.0,1,https://lenta.com/product/nektar-banan-yabl-morkov-s-myakotyu-dpit-detejj-s-3-h-let-st-rossiya-1l/
+"Напиток сокосодержащий ФРУКТОВЫЙ ЗВЕЗДНЫЙ ЛУЧ со вкусом клубники, 0.62л",229.99,273.69,true,5.0,2,https://lenta.com/product/napitok-sokosoderzhashchijj-so-vkusom-klubniki-pet-kitajj-062l/
+"Напиток ABSOLUTE NATURE Kombucha-Immuno+ Имбирь, мед, лимон, 0.35л",119.99,157.89,true,4.1,7,https://lenta.com/product/napitok-bezalkogolnyjj-kombucha-immuno-imbmedlimon-pet-rossiya-035l/
+"Напиток сокосодержащий ВЕЛИКАЯ РУСЬ Сок березовый негазированный, 1л",249.99,263.19,false,0.0,0,https://lenta.com/product/napitok-bezalkogolnyjj-s-sokom-sok-berjzovyjj-negaz-st-rossiya-1l/
+"Вода минеральная ЧЕРНОГОЛОВКА негазированный, 0.33л",55.99,65.26,true,4.5,24,https://lenta.com/product/voda-mineralnaya-negazst-rossiya-033l/
+"Сок FLEUR ALPINE Яблочный, прямого отжима, с 8 месяцев, 200мл",169.99,199.99,true,5.0,4,https://lenta.com/product/destkoe-pitanie-sok-yablochnyjj-pryamogo-otzhima-s-8-mesyacev-avstriya-200ml/
+"Напиток сокосодержащий ДОБРЫЙ Pulpy Тропический с мякотью, 0.45л",79.99,84.20,false,5.0,26,https://lenta.com/product/napitok-sokosoderzhashchijj-pulpy-tropicheskijj-pet-rossiya-045l/
+"Напиток RICH Зеленый чай Малина, 0.5л",89.99,115.79,true,4.7,14,https://lenta.com/product/napitok-bezalkogolnyjj-zelenyjj-chajj-so-vkusom-maliny-negaz-pet-rossiya-05l/
+"Нектар САДЫ ПРИДОНЬЯ Тыква с мякотью, с 5 месяцев, 200мл",38.99,56.89,true,4.9,17,https://lenta.com/product/dp-nektar-tykvennyjj-s-myakotyu-s-5-mes-st-rossiya-200ml/
+"Напиток сокосодержащий ФРУКТОВЫЙ ЗВЕЗДНЫЙ ЛУЧ со вкусом маракуйи, 0.62л",229.99,273.69,true,0.0,0,https://lenta.com/product/napitok-sokosoderzhashchijj-so-vkusom-marakujji-pet-kitajj-062l/
+"Напиток ФРУТМОТИВ Тропические фрукты негазированный, 0.5л",59.99,73.69,true,5.0,1,https://lenta.com/product/napitok-bezalkogolnyjj-tropicheskie-frukty-negaz-pet-rossiya-05l/
+"Напиток POSITIVITEA Черный чай со вкусом лимона негазированный, 0.4л",59.99,63.15,false,4.5,2,https://lenta.com/product/napitok-bezalkogolnyjj-chernyjj-chajj-so-vkusom-limona-negaz-past-pet-rossiya-04l/
+"Вино безалкогольное LE PETIT BERET Rose Prestige, 0.75л",1049.99,1368.42,true,3.0,2,https://lenta.com/product/vino-bezalkogolnoe-ros-prestige-franciya-075l/
+"Нектар REVIVAL Бананово-клубничный, 0.75л",149.99,178.99,true,4.8,6,https://lenta.com/product/nektar-bananovo-klubnichnyjj-st-rossiya-075l/
+"Сок BARINOFF Грушевый с мякотью восстановленный, 1л",175.00,305.26,true,4.7,7,https://lenta.com/product/sok-grushevyjj-s-myakotyu-rossiya-1l/
+"Сок ДОБРЫЙ Active kid Мультифруктовый, 0.2л",41.99,54.73,true,4.9,38,https://lenta.com/product/sok-super-dzhus-multifruktovyjj-active-kid-tpak-rossiya-02l/
+"Напиток RICH Зеленый чай, 0.5л",89.99,115.79,true,4.9,17,https://lenta.com/product/napitok-bezalkogolnyjj-zelenyjj-chajj-negaz-rossiya-05l/
+"Напиток ФРУТМОТИВ Яркий апельсин негазированный, 0.5л",59.99,73.69,true,5.0,4,https://lenta.com/product/napitok-bezalkogolnyjj-yarkijj-apelsin-negaz-pet-rossiya-05l/
+"Напиток сокосодержащий МОЯ СЕМЬЯ Манго Тропиканго, 200мл",27.99,35.78,true,5.0,5,https://lenta.com/product/napitok-sokosoderzhashchijj-mango-tropikango-tpak-rossiya-02l/
+"Нектар МАЛЫШАМ Яблоко-груша неосветленный, с 5 месяцев, 200мл",29.99,41.09,true,4.8,18,https://lenta.com/product/detskoe-pitanie-nektar-yablochno-grushevyjj-neosvetl-dpit-det-ran-vozr-s-5-mes-rossiya-200ml/
+"Напиток ДОБРЫЙ Cola сильногазированный, 0.33л",94.99,110.52,true,4.9,10,https://lenta.com/product/napitok-bezalkogolnyjj-cola-sgaz-st-rossiya-033l/
+"Напиток ФРУСТАЙЛ Лимон, лайм газированный, 0.5л",89.99,110.59,true,4.7,54,https://lenta.com/product/napitok-bezalkogolnyjj-limon-lajjm-gazpet-rossiya-05l/

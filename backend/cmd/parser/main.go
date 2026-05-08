@@ -2,6 +2,7 @@ package main
 
 import (
 	"context"
+	"errors"
 	"log/slog"
 	"net/http"
 	"os"
@@ -13,25 +14,22 @@ import (
 	"github.com/Royal17x/lenta-parser/internal/config"
 	"github.com/Royal17x/lenta-parser/internal/export"
 	"github.com/Royal17x/lenta-parser/internal/lenta"
+	"github.com/Royal17x/lenta-parser/internal/server"
 	"github.com/prometheus/client_golang/prometheus/promhttp"
 )
 
 func main() {
-	logger := slog.New(slog.NewTextHandler(os.Stdout, &slog.HandlerOptions{
+	slog.SetDefault(slog.New(slog.NewTextHandler(os.Stdout, &slog.HandlerOptions{
 		Level: slog.LevelInfo,
-	}))
-	slog.SetDefault(logger)
+	})))
 
 	cfg := config.Load()
 
 	go func() {
 		mux := http.NewServeMux()
 		mux.Handle("/metrics", promhttp.Handler())
-		addr := ":" + cfg.Metrics.Port
-		slog.Info("metrics server started", "addr", addr)
-		if err := http.ListenAndServe(addr, mux); err != nil {
-			slog.Error("metrics server failed", "error", err)
-		}
+		slog.Info("metrics server started", "addr", ":"+cfg.Metrics.Port)
+		http.ListenAndServe(":"+cfg.Metrics.Port, mux)
 	}()
 
 	httpClient, err := client.New(&cfg.HTTP)
@@ -47,6 +45,18 @@ func main() {
 		City:  cfg.Store.City,
 	}
 	scraper := lenta.NewScraper(httpClient, storeCfg, cfg.HTTP.QratorJSID)
+	srv := server.New(scraper)
+
+	httpServer := &http.Server{
+		Addr:    ":" + cfg.Server.Port,
+		Handler: srv.Routes(),
+	}
+	go func() {
+		slog.Info("HTTP server started", "addr", ":"+cfg.Server.Port)
+		if err := httpServer.ListenAndServe(); err != nil && !errors.Is(err, http.ErrServerClosed) {
+			slog.Error("HTTP server failed", "error", err)
+		}
+	}()
 
 	ctx, cancel := signal.NotifyContext(context.Background(), syscall.SIGINT, syscall.SIGTERM)
 	defer cancel()
@@ -54,32 +64,34 @@ func main() {
 	slog.Info("starting scraper",
 		"store", cfg.Store.Title,
 		"categories", len(lenta.KnownCategories),
+		"max_pages", cfg.Scraper.MaxPagesPerCategory,
 	)
 
 	start := time.Now()
-	totalProducts := 0
+	srv.SetRunning(true)
 
-	for result := range scraper.ScrapeAll(ctx, lenta.KnownCategories) {
+	for result := range scraper.ScrapeAll(ctx, lenta.KnownCategories, cfg.Scraper.MaxPagesPerCategory) {
+		srv.AppendResult(result)
+
 		if result.Err != nil {
-			slog.Error("category failed",
-				"category", result.Category.Name,
-				"error", result.Err,
-			)
+			slog.Error("category failed", "category", result.Category.Name, "error", result.Err)
 			continue
 		}
 
 		csvFile, err := export.SaveCSV(result.Products, result.Category.Slug)
 		if err != nil {
-			slog.Error("CSV export failed", "category", result.Category.Name, "error", err)
+			slog.Error("CSV export failed", "error", err)
 		} else {
 			slog.Info("CSV saved", "file", csvFile, "products", len(result.Products))
 		}
-
-		totalProducts += len(result.Products)
 	}
 
+	srv.SetRunning(false)
 	slog.Info("scraping finished",
-		"total_products", totalProducts,
+		"total_products", srv.TotalProducts(),
 		"duration", time.Since(start).Round(time.Millisecond),
 	)
+
+	<-ctx.Done()
+	httpServer.Shutdown(context.Background())
 }
