@@ -18,6 +18,7 @@ type Product struct {
 	Name    string  `json:"name"`
 	Slug    string  `json:"slug"`
 	StoreID int     `json:"storeId"`
+	Count   int     `json:"count"`
 	Prices  Prices  `json:"prices"`
 	Display Display `json:"display"`
 	Rating  Rating  `json:"rating"`
@@ -28,10 +29,12 @@ type Prices struct {
 	PriceRegular int  `json:"priceRegular"`
 	IsPromo      bool `json:"isPromoactionPrice"`
 }
+
 type Display struct {
 	Name    string `json:"name"`
 	Package string `json:"package"`
 }
+
 type Rating struct {
 	Rate  float64 `json:"rate"`
 	Votes int     `json:"votes"`
